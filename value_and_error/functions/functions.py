@@ -6,7 +6,7 @@
 # @company          : National Institute for Space Research (INPE) - São José dos Campos/SP - Brazil
 # 
 
-"""
+'''
 This fuinction computes the first significant figure's position from the error.
 
 It is expected that a real measurement be expressed as: LowLimit < ExpectedValue
@@ -15,30 +15,29 @@ ExpectedValue - LowLimit or HighLimit - ExpectedValue , depending on which has
 the highest amount of leading zeros.
 
 Code intended to run under Python 3 or above 
-"""
+
+'''
 
 from math import *
 
-"""
+'''
 x is either low_error = ExpectedValue - LowLimit  or high_error = HighLimit - ExpectedValue. 
-digits stores the position of the first significant figure. Since the fisrt
+digits stores the position of the first significant figure. Since the first
 significant figure's position in low_error and high_error couldn't be the same.
 In such a case digit equals to the highest position.
-"""
-
-
+'''
 def significant_figure(x):
     digits = floor(log10(x))
     #accounts for numerical problems  
     x = round(x*pow(10,-digits))*pow(10,digits)
     digits = floor(log10(x))
     
-    #check if the leading digit in the uncertainty is <= 2, like 0.00243, 0.0223. 
+    #check if the leading digit in the uncertainty is 1, like 0.01243, 0.0123. 
     # in such a case the uncertainty retains two significant figures
 
     if (digits <0):
         value =  float (fmt(digits).format(x))
-        if ( (value/(2.*pow(10,digits))) <= 1. ):
+        if ( (value/(1.*pow(10,digits))) <= 1. ):
             digits-=1
 
     return digits

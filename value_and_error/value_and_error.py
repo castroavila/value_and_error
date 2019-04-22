@@ -7,31 +7,28 @@
 # 
 
 
-#import functions for significant figures and formatting
+'''
+This script follows the theory giving in:
+An introduction to error analysis: The study of uncertainties in physical
+measurements, 2nd edition, John R.  Taylor, chapter 2, 1997.
+'''
 
+
+#import functions for significant figures and formatting
 from .functions.functions import *
 
-#colors to highlight outputs coming from errors
-
-black ="\033[1;30" 
-red ="\033[1;31" 
-green ="\033[1;32" 
-yellow ="\033[1;33" 
-blau ="\033[1;34" 
-red ="\033[1;31" 
 
 '''
 A measurement is expressed as: 
 LowLimit < ExpectedValue < HighLimit
-
 '''
 class value_and_error:
-      
+     
     def __init__(self,LowLimit, ExpectedValue, HighLimit):
         self.LowLimit = LowLimit
         self.ExpectedValue = ExpectedValue
         self.HighLimit = HighLimit
-
+#        self.string=''
         if ( self.LowLimit < 0 or self.ExpectedValue < 0 or self.HighLimit < 0 ):
             print("Range values should be greater than 0")
             return 
@@ -81,7 +78,7 @@ class value_and_error:
 #        print(digits)
     #check if the numbers must be expressed in scientific notation
         power=0
-        if (0.01 <= ExpectedValue <= 100.):
+        if (0.001 <= self.HighError <= 100.):
             pass
         else:
             magnitude_order_value = significant_figure(self.value)
@@ -101,65 +98,65 @@ class value_and_error:
 
 
     #Proper formatting
-        global string
+#        global string
         if(digits < 0):
 
-            LowError = fmt(digits).format(self.mn)
-            HighError = fmt(digits).format(self.mx)
-            ExpectedValue = fmt(digits).format(self.value) 
+            self.LowError = fmt(digits).format(self.mn)
+            self.HighError = fmt(digits).format(self.mx)
+            self.ExpectedValue = fmt(digits).format(self.value) 
     #generate proper LaTeX string
             if ( power == 0 ):
 
-                if(float(LowError) == float(HighError)):
-                    string='$' + ExpectedValue + '\\pm' +  LowError + '$' 
+                if(float(self.LowError) == float(self.HighError)):
+                    self.string='$' + self.ExpectedValue + '\\pm' +  self.LowError + '$' 
 
-                if(float(LowError) != float(HighError)):
-                    string='$' + ExpectedValue + '_{-' + LowError + '}^{+' + HighError + '}$'
+                if(float(self.LowError) != float(self.HighError)):
+                    self.string='$' + self.ExpectedValue + '_{-' + self.LowError + '}^{+' + self.HighError + '}$'
             else:
             #in case of scientific notation             
-                if(self.mn == self.mx ):
-                    string='$\\left(' + ExpectedValue + '\\pm' +  LowError + '\\right)\\times10^{' + str(power) + '}$' 
+                if(float(self.LowError) == float(self.HighError) ) :
+                    self.string='$\\left(' + self.ExpectedValue + '\\pm' +  self.LowError + '\\right)\\times10^{' + str(power) + '}$' 
 
-                if(self.mn != self.mx):
-                    string='$\\left(' + ExpectedValue + '_{-' + LowError + '}^{+' + HighError + '}\\right)\\times10^{'+str(power)+'}$'
+                if(float(self.LowError) != float(self.HighError) ):
+                    self.string='$\\left(' + self.ExpectedValue + '_{-' + self.LowError + '}^{+' + self.HighError + '}\\right)\\times10^{'+str(power)+'}$'
              
         
         else:
-            LowError = fmt(digits).format(round(self.mn))
-            HighError = fmt(digits).format(round(self.mx))
-            ExpectedValue = fmt(digits).format(round(self.value))
+            self.LowError = fmt(digits).format(int(round(self.mn)))
+            self.HighError = fmt(digits).format(int(round(self.mx)))
+            self.ExpectedValue = fmt(digits).format(int(round(self.value)))
 
     #generate proper LaTeX string
 
-    # These linies should deal with expressions like
+    # These lines should deal with expressions like
     # 92.81 \pm 3 ==> 93 \pm 3
     # 92.81 \pm 30  ==> 90 \pm 30
     # ....
             order = int(round(self.value)/pow(10,digits))
-            value = pow(10, digits)*order
-            ExpectedValue = fmt(digits).format(int(value))
+            self.value = pow(10, digits)*order
+            self.ExpectedValue = fmt(digits).format(int(self.value))
             
             if(power == 0 ):
-                if(float(LowError) == float(HighError)):
-                    string='$' + ExpectedValue + '\\pm' +  LowError + '$' 
+                if(float(self.LowError) == float(self.HighError)):
+                    self.string='$' + self.ExpectedValue + '\\pm' +  self.LowError + '$' 
 
-                if(float(LowError) != float(HighError)):
-                    string='$' + ExpectedValue + '_{-' + LowError + '}^{+' + HighError + '}$'
+                if(float(self.LowError) != float(self.HighError)):
+                    self.string='$' + self.ExpectedValue + '_{-' + self.LowError + '}^{+' + self.HighError + '}$'
             else:
             #in case of scientific notation             
-                if(float(LowError) == float(HighError)):
-                    string='$\\left(' + ExpectedValue + '\\pm' +  LowError + '\\right)\\times10^{' + str(power) + '}$' 
+                if(float(self.LowError) == float(self.HighError)):
+                    self.string='$\\left(' + self.ExpectedValue + '\\pm' +  self.LowError + '\\right)\\times10^{' + str(power) + '}$' 
 
-                if(float(LowError) != float(HighError)):
-                    string='$\\left(' + ExpectedValue + '_{-' + LowError + '}^{+' + HighError + '}\\right)\\times10^{'+str(power)+'}$'
+                if(float(self.LowError) != float(self.HighError)):
+                    self.string='$\\left(' + self.ExpectedValue + '_{-' + self.LowError + '}^{+' + self.HighError + '}\\right)\\times10^{'+str(power)+'}$'
             
 #        print(string)
        
 ###Class methods
 
-# return LaTex-like string with value and error
+# return LaTeX-like string with value and error
     def  get_latex_string(self):
-        return string
+        return self.string
 
 #return expected value
     def get_expected_value(self):
@@ -175,7 +172,7 @@ class value_and_error:
 ####################################################
 ####################################################
 '''
-This class deal with expressions where the error is symetric, e.g.:
+This class deal with expressions where the error is symmetric, e.g.:
     ExpectedValue \pm error
 '''
 
