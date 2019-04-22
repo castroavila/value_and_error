@@ -7,6 +7,14 @@
 # 
 
 '''
+
+  This script has been developed under financial support from FAPESP (Fundação  #
+  de Amparo à Pesquisa do Estado de São Paulo, Brazil) under grant #2015/25972-0#
+
+'''
+
+
+'''
 This fuinction computes the first significant figure's position from the error.
 
 It is expected that a real measurement be expressed as: LowLimit < ExpectedValue

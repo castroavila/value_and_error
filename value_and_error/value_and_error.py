@@ -6,6 +6,12 @@
 # @company          : National Institute for Space Research (INPE) - São José dos Campos/SP - Brazil
 # 
 
+'''
+
+  This script has been developed under financial support from FAPESP (Fundação  #
+  de Amparo à Pesquisa do Estado de São Paulo, Brazil) under grant #2015/25972-0#
+
+'''
 
 '''
 This script follows the theory giving in:
