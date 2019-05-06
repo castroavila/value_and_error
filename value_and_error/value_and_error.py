@@ -8,9 +8,11 @@
 
 '''
 
-  This script has been developed under financial support from FAPESP (Fundação  #
-  de Amparo à Pesquisa do Estado de São Paulo, Brazil) under grant #2015/25972-0#
+  This script has been developed under financial support from FAPESP (Fundação  
+  de Amparo à Pesquisa do Estado de São Paulo, Brazil) under grant #2015/25972-0
 
+ The code is based on the remeis isisscript's function TeX_value_pm_error. The    
+ scripts can be found at http://www.sternwarte.uni-erlangen.de/isis/              
 '''
 
 '''

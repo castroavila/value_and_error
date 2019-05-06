@@ -7,8 +7,11 @@ README.txt
 
 ####################################################################################
 ####################################################################################
-  This script has been developed under financial support from FAPESP (Fundação  #
-  de Amparo à Pesquisa do Estado de São Paulo, Brazil) under grant #2015/25972-0#
+#  This script has been developed under financial support from FAPESP (Fundação    #
+#  de Amparo à Pesquisa do Estado de São Paulo, Brazil) under grant #2015/25972-0  #
+#                                                                                  #
+# The code is based on the remeis isisscript's function TeX_value_pm_error. The    #
+# scripts can be found at http://www.sternwarte.uni-erlangen.de/isis/              #
 ####################################################################################
 ####################################################################################
 
@@ -41,6 +44,5 @@ string: get_latex_string(). Same case in value_and_symerror
 This script follows the theory giving in:
 An introduction to error analysis: The study of uncertainties in physical
 measurements, 2nd edition, John R.  Taylor, chapter 2, 1997.
-
 
 
