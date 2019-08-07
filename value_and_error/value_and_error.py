@@ -44,7 +44,7 @@ class value_and_error:
 
     #Check that the values are as expected
 
-        if (self.LowLimit < self.ExpectedValue):
+        if (self.LowLimit <= self.ExpectedValue):
             pass
         else:    
             print("Error: Low Value >= ExpectedValue")
@@ -77,10 +77,29 @@ class value_and_error:
 
 # # of digits
 
+        # deal with upper limits
+        if(self.mn == 0.):
+            digits =  significant_figure(self.mx)
+            power=0
+            if (0.001 <= self.HighError <= 100.):
+                self.HighError = fmt(digits).format(self.mx)
+                self.string = '$\le' + self.HighError + '$'
+                return
+            else:
+                magnitude_order_value = significant_figure(self.mx)
+                power=max(magnitude_order_value,digits)
+                self.mx /= pow(10,power)
 
-        digit1 = significant_figure(self.mn) 
-        digit2 = significant_figure(self.mx)
-        digits = min(digit1,digit2) 
+                #compute over significant figure
+                digits = significant_figure(self.mx)
+#
+                self.HighError = fmt(digits).format(int(round(self.mx)))
+                self.string = '$\le' + self.HighError+'\\times10^{' + str(power) + '}$' 
+                return
+        else:
+            digit1 = significant_figure(self.mn) 
+            digit2 = significant_figure(self.mx)
+            digits = min(digit1,digit2) 
 
 #        print('digits: ')
 #        print(digits)
@@ -103,6 +122,12 @@ class value_and_error:
 #        print(fmt(digits))
 
 
+##For upper limits only
+#
+#        if (self.value ==  self.mn):
+#            self.HighError = fmt(digits).format(self.mx)
+#            string = '$\le' + self.HighError
+#            return 
 
 
     #Proper formatting
