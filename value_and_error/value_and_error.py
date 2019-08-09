@@ -83,7 +83,7 @@ class value_and_error:
             power=0
             if (0.001 <= self.HighError <= 100.):
                 self.HighError = fmt(digits).format(self.mx)
-                self.string = '$\le' + self.HighError + '$'
+                self.string = '$<' + self.HighError + '$'
                 return
             else:
                 magnitude_order_value = significant_figure(self.mx)
@@ -94,7 +94,7 @@ class value_and_error:
                 digits = significant_figure(self.mx)
 #
                 self.HighError = fmt(digits).format(int(round(self.mx)))
-                self.string = '$\le' + self.HighError+'\\times10^{' + str(power) + '}$' 
+                self.string = '$<' + self.HighError+'\\times10^{' + str(power) + '}$' 
                 return
         else:
             digit1 = significant_figure(self.mn) 
