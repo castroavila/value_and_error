@@ -37,9 +37,9 @@ class value_and_error:
         self.ExpectedValue = ExpectedValue
         self.HighLimit = HighLimit
 #        self.string=''
-        if ( self.LowLimit < 0 or self.ExpectedValue < 0 or self.HighLimit < 0 ):
-            print("Range values should be greater than 0")
-            return 
+#        if ( self.LowLimit < 0 or self.ExpectedValue < 0 or self.HighLimit < 0 ):
+#            print("Range values should be greater than 0")
+#            return 
             
 
     #Check that the values are as expected
@@ -108,7 +108,7 @@ class value_and_error:
         if (0.001 <= self.HighError <= 100.):
             pass
         else:
-            magnitude_order_value = significant_figure(self.value)
+            magnitude_order_value = significant_figure(abs(self.value))
             power=max(magnitude_order_value,digits)
             self.value /= pow(10,power)
             self.mn /= pow(10,power)
