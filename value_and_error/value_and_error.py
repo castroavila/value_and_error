@@ -50,10 +50,10 @@ class value_and_error:
             print("Error: Low Value >= ExpectedValue")
             return 
         
-        if(self.ExpectedValue < self.HighLimit):
+        if(self.ExpectedValue <= self.HighLimit):
             pass
         else:
-            print("Error: ExpectedValue >= HighLimit")
+            print("Error: ExpectedValue > HighLimit")
             return
 
         self.LowError = self.ExpectedValue - self.LowLimit   
@@ -78,12 +78,15 @@ class value_and_error:
 # # of digits
 
         # deal with upper limits
-        if(self.mn == 0.):
+        if(self.mn == 0. and self.value == 0.):
             digits =  significant_figure(self.mx)
             power=0
-            if (0.001 <= self.HighError <= 100.):
-                self.HighError = fmt(digits).format(self.mx)
-                self.string = '$<' + self.HighError + '$'
+            if (0.01 <= self.HighError <= 100.):
+                if(digits < 0):
+                    self.HighError = fmt(digits).format(self.mx)
+                    self.string = '$<' + self.HighError + '$'
+                else:
+                    self.string = '$<' + "{:.1f}".format(self.mx)+ '$'
                 return
             else:
                 magnitude_order_value = significant_figure(self.mx)
@@ -105,7 +108,7 @@ class value_and_error:
 #        print(digits)
     #check if the numbers must be expressed in scientific notation
         power=0
-        if (0.001 <= self.HighError <= 100.):
+        if (0.01 <= self.HighError <= 100. ):
             pass
         else:
             magnitude_order_value = significant_figure(abs(self.value))
