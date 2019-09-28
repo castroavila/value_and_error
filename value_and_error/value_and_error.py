@@ -99,6 +99,10 @@ class value_and_error:
                 self.HighError = fmt(digits).format(int(round(self.mx)))
                 self.string = '$<' + self.HighError+'\\times10^{' + str(power) + '}$' 
                 return
+        # Deal when value == HighLimit            
+        elif (self.mx == 0. and self.value == self.HighLimit):
+            digits = significant_figure(self.mn)
+
         else:
             digit1 = significant_figure(self.mn) 
             digit2 = significant_figure(self.mx)
@@ -116,11 +120,14 @@ class value_and_error:
             self.value /= pow(10,power)
             self.mn /= pow(10,power)
             self.mx /= pow(10,power)
-
-            #compute over significant figure
-            digit1 = significant_figure(self.mn) 
-            digit2 = significant_figure(self.mx)
-            digits = min(digit1,digit2) 
+        # Deal when value == HighLimit            
+            if (self.mx == 0.):
+                digits = significant_figure(self.mn)
+            else:
+                #compute over significant figure
+                digit1 = significant_figure(self.mn) 
+                digit2 = significant_figure(self.mx)
+                digits = min(digit1,digit2) 
         
 #        print(fmt(digits))
 
